@@ -171,4 +171,4 @@ jobs:
           tag_name: ${{ github.run_id }}
           body: |
             [Kernel Source](${{ env.KERNEL_SOURCE_URL }}/tree/${{ github.event.inputs.KERNEL_BRANCH }})
-            [Latest Commit](${{ env.KERNEL_SOURCE_URL }}/commit/${{ github.event.inputs.KERNEL_BRANCH }}) at the time of building.
+            [Latest Commit](${{ env.KERNEL_SOURCE_URL }}/commit/${{ env.COMMIT_ID }}) at the time of building.
