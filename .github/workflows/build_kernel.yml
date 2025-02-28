@@ -6,7 +6,7 @@ on:
       KERNEL_SOURCE:
         description: 'Kernel source URL'
         required: true
-        default: 'https://github.com/koko-07870/spark_kernel_sm7125.git'
+        default: 'https://github.com/koko-07870/kernel_samsung_sm7125.git'
       KERNEL_BRANCH:
         description: 'Kernel branch'
         required: true
