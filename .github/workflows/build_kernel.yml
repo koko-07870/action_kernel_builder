@@ -18,7 +18,7 @@ on:
       CONFIG_FILE:
         description: 'Config file (You can put multiple configs separated by space)'
         required: true
-        default: 'pixelos-a52q_defconfig vendor/debugfs.config'
+        default: 'vendor/pixelos-a52q_defconfig vendor/debugfs.config'
       TOOLCHAIN_URL:
         description: "Clone URL of your toolchain"
         required: true
