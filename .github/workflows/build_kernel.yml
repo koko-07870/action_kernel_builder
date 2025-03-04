@@ -122,9 +122,7 @@ jobs:
          compiled_image="arch/arm64/boot/Image"
          compiled_gz_image="arch/arm64/boot/Image.gz"
          compiled_gz_dtb="arch/arm64/boot/Image.gz-dtb"
-         compiled_dtbo="arch/arm64/boot/dtbo.img"
-         compiled_dtb="arch/arm64/boot/dtb.img"         
-           
+         
          if [[ -f ${compiled_image} || -f ${compiled_gz_image} || -f ${compiled_gz_dtb} ]]; then
               git clone -q ${{ github.event.inputs.ANYKERNEL }} "${{ env.ANYKERNEL }}"
 
@@ -137,16 +135,6 @@ jobs:
               elif [[ -f "${compiled_gz_dtb}" ]]; then
                   cp -f "${compiled_gz_dtb}" "${{ env.ANYKERNEL }}/Image.gz-dtb" || true
                   cp -f "${compiled_gz_dtb}" "${{ env.OUTPUT_DIR }}/Image.gz-dtb" || true
-              fi
-
-              if [[ -f "${compiled_dtbo}" ]]; then
-                  cp -f "${compiled_dtbo}" "${{ env.ANYKERNEL }}/dtbo.img" || true
-                  cp -f "${compiled_dtbo}" "${{ env.OUTPUT_DIR }}/dtbo.img" || true
-              fi
-
-              if [[ -f "${compiled_dtb}" ]]; then
-                  cp -f "${compiled_dtb}" "${{ env.ANYKERNEL }}/dtb.img" || true
-                  cp -f "${compiled_dtb}" "${{ env.OUTPUT_DIR }}/dtb.img" || true
               fi
 
               cd "${{ env.ANYKERNEL }}"
