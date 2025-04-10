@@ -6,7 +6,7 @@ on:
       KERNEL_SOURCE:
         description: 'Kernel source URL'
         required: true
-        default: 'https://github.com/koko-07870/kernel_samsung_sm7125.git'
+        default: 'https://github.com/koko-07870/android_kernel_samsung_sm7125.git'
       KERNEL_BRANCH:
         description: 'Kernel branch'
         required: true
@@ -18,7 +18,7 @@ on:
       CONFIG_FILE:
         description: 'Config file (You can put multiple configs separated by space)'
         required: true
-        default: 'vendor/pixelos-a52q_defconfig'
+        default: 'oliver_defconfig'
       TOOLCHAIN_URL:
         description: "Clone URL of your toolchain"
         required: true
