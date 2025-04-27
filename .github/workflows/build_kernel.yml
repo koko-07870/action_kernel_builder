@@ -6,27 +6,27 @@ on:
       KERNEL_SOURCE:
         description: 'Kernel source URL'
         required: true
-        default: 'https://github.com/aosp-realm/android_kernel_xiaomi_apollo.git'
+        default: 'https://github.com/koko-07870/oliver_kernel_samsung_sm7125.git'
       KERNEL_BRANCH:
         description: 'Kernel branch'
         required: true
-        default: 'main'
+        default: 'fifteen'
       KERNEL_NAME:
         description: 'Kernel/zip name'
         required: true
-        default: 'perf'
+        default: 'test'
       CONFIG_FILE:
         description: 'Config file (You can put multiple configs separated by space)'
         required: true
-        default: 'apollo_defconfig vendor/debugfs.config'
+        default: 'oliver_defconfig'
       TOOLCHAIN_URL:
         description: "Clone URL of your toolchain"
         required: true
-        default: 'https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-15.0.0_r1/clang-r522817.tar.gz'
+        default: 'https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r547379.tar.gz'
       ANYKERNEL:
         description: "Clone URL of your AnyKernel"
         required: true
-        default: 'https://github.com/aosp-realm/AnyKernel3.git -b master'
+        default: 'https://github.com/koko-07870/AnyKernel3.git -b master'
 
 jobs:
   Build_Kernel:
@@ -119,33 +119,14 @@ jobs:
         run: |
          cd "${{ env.OBJDIR }}"
          
-         compiled_image="arch/arm64/boot/Image"
-         compiled_gz_image="arch/arm64/boot/Image.gz"
          compiled_gz_dtb="arch/arm64/boot/Image.gz-dtb"
-         compiled_dtbo="arch/arm64/boot/dtbo.img"
-         qcom_dtb="arch/arm64/boot/dts/vendor/qcom"
-           
-         if [[ -f ${compiled_image} || -f ${compiled_gz_image} || -f ${compiled_gz_dtb} ]]; then
+         
+         if [[ -f ${compiled_gz_dtb} ]]; then
               git clone -q ${{ github.event.inputs.ANYKERNEL }} "${{ env.ANYKERNEL }}"
 
-              if [[ -f "${compiled_image}" ]]; then
-                  cp -f "${compiled_image}" "${{ env.ANYKERNEL }}/Image" || true
-                  cp -f "${compiled_image}" "${{ env.OUTPUT_DIR }}/Image" || true
-              elif [[ -f "${compiled_gz_image}" ]]; then
-                  cp -f "${compiled_gz_image}" "${{ env.ANYKERNEL }}/Image.gz" || true
-                  cp -f "${compiled_gz_image}" "${{ env.OUTPUT_DIR }}/Image.gz" || true
-              elif [[ -f "${compiled_gz_dtb}" ]]; then
+              if [[ -f "${compiled_gz_dtb}" ]]; then
                   cp -f "${compiled_gz_dtb}" "${{ env.ANYKERNEL }}/Image.gz-dtb" || true
                   cp -f "${compiled_gz_dtb}" "${{ env.OUTPUT_DIR }}/Image.gz-dtb" || true
-              fi
-              
-              if [[ -f "${compiled_dtbo}" ]]; then
-                  cp -f "${compiled_dtbo}" "${{ env.ANYKERNEL }}/dtbo.img" || true
-                  cp -f "${compiled_dtbo}" "${{ env.OUTPUT_DIR }}/dtbo.img" || true
-              fi
-              
-              if ls ${qcom_dtb}/*.dtb 1> /dev/null 2>&1; then
-                  cp -f ${qcom_dtb}/*.dtb "${{ env.OUTPUT_DIR }}" || true
               fi
 
               cd "${{ env.ANYKERNEL }}"
